@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -50,20 +49,20 @@ func GETHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	var feature Feature
+	var features []Feature
 	for rows.Next() {
-
+		var feature Feature
 		rows.Scan(&feature.FeatureName, &feature.IsEnabled)
+		features = append(features, feature)
 	}
 
-	peopleBytes, _ := json.MarshalIndent(feature, "", "\t")
-	t := template.Must(template.ParseFiles("./basic.html"))
-	if err := t.Execute(w, feature); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	for _, feature := range features {
+		t := template.Must(template.ParseFiles("./basic.html"))
+		if err := t.Execute(w, feature); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(peopleBytes)
 
 	defer rows.Close()
 	defer db.Close()
