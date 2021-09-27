@@ -1,5 +1,4 @@
 # feature-flag
-
 Step 1 :
 
 ```
@@ -11,10 +10,16 @@ docker run -d \
 ```
     
  step 2: 
-`open localhost:8080 it will open Flipt UI `
+```
+open localhost:8080 it will open Flipt UI 
+```
 
  step 3: 
-`create new flag`
+```
+create new flag
+```
 
  step4 : 
-`mention flag name in main.go`
+```
+ mention flag name in main.go
+```
