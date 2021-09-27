@@ -19,17 +19,17 @@ func init() {
 		unleash.WithListener(&unleash.DebugListener{}),
 		unleash.WithAppName("my-application"),
 		unleash.WithUrl("http://localhost:4242/api/"),
-		unleash.WithCustomHeaders(http.Header{"Authorization": {"93fcc4689e6b76833d796cb616625c5f1747b97f05f9e0cf3ef661b4d36f3090"}}),
+		unleash.WithCustomHeaders(http.Header{"Authorization": {"66e1e4cc7912b243a2710a1851ffd91ed4d68728261ab266aec88d4f574d23e5"}}),
 	)
 
 }
 
 func GETHandler(w http.ResponseWriter, r *http.Request) {
-
-	if unleash.IsEnabled("Log-analyzer") {
+	var featureName =  "country-based-rollout"
+	if unleash.IsEnabled(featureName) {
 		var feature Feature
-		feature.FeatureName = "Log-analyzer"
-		feature.IsEnabled = unleash.IsEnabled("Log-analyzer")
+		feature.FeatureName = featureName
+		feature.IsEnabled = unleash.IsEnabled(featureName)
 
 		t := template.Must(template.ParseFiles("./basic.html"))
 		if err := t.Execute(w, feature); err != nil {
@@ -38,8 +38,8 @@ func GETHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		var feature Feature
-		feature.FeatureName = "Log-analyzer"
-		feature.IsEnabled = unleash.IsEnabled("Log-analyzer")
+		feature.FeatureName = featureName
+		feature.IsEnabled = unleash.IsEnabled(featureName)
 		t := template.Must(template.ParseFiles("./basic.html"))
 		if err := t.Execute(w, feature); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
