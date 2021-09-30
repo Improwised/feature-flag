@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <title>Flipt Example</title>
+    <title>Feature Flag Example</title>
   </head>
   <body>
     <section class="section">
@@ -34,7 +34,32 @@
           </article>
           {{end}}
         </div>
-      </div>
+ <!-- <div id="hero">
+      This is hero element
+    </div>
+   <button onclick="addClass('hero')">Go</button>
+    <script>
+      var variant = "{{.Variant}}"
+      function addClass(id) {
+
+        const element = document.getElementById(id);
+        element.setAttribute("class", variant);
+      }
+    </script>
+      </div> -->
     </section>
   </body>
+ 
+<style>
+  .red{
+    background-color: red;
+  }
+  .green{
+    background-color: green;
+  }
+  .blue{
+    background-color: blue;
+  }
+</style>
+
 </html>
